@@ -23,6 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     /* ゲーム処理初期　*/
     SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); //utf8を使うようにする
     SetGraphMode(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_COLOR_BIT); //解像度を設定
+    SetOutApplicationLogValidFlag(DX_LOGTXT_OUTPUT_FLAG); //Log.txtの設定
     /*フルスクリーンかウィンドウか選ばせる*/
     if (MessageBox(NULL, _T("フルスクリーンで起動しますか？"), _T("起動オプション"), MB_YESNO) == IDYES) {
         ChangeWindowMode(FALSE);

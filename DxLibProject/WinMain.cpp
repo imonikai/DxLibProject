@@ -17,20 +17,6 @@
 #include "KeyInput.h"
 #include "Error.h"
 #include "Timer.h"
-#include "XInput.h"
-
-//ゲームループの必須処理
-BOOL requiredProcess()
-{
-    if (ScreenFlip() == -1) return FALSE;
-    if (ProcessMessage() == -1) return FALSE;
-    if (ClearDrawScreen() == -1) return FALSE;
-    if (KeyInput::update() == FALSE) return FALSE;
-    if (Timer::update() == FALSE) return FALSE;
-    if (XInput::update() == FALSE) return FALSE;
-
-    return TRUE;
-}
 
 // プログラムは WinMain から始まります 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -56,36 +42,26 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetDrawScreen(DX_SCREEN_BACK); //裏画面を使用する
 
     Timer::init(); //タイマーを初期化する
-    XInput::init(DX_INPUT_PAD1); //コントローラーを初期化する（コントローラーはゼロ番を使う
-
-    /*サンプルの丸用変数*/
-    float x = 100.0f;
-    float y = 100.0f;
-    float speed = 200.0f;
 
     // while( 裏画面を表画面に反映, メッセージ処理, 画面クリア )
-    while ( requiredProcess() )
+    while ( ScreenFlip() == 0 
+        && ProcessMessage() == 0 
+        && ClearDrawScreen() == 0 
+        && KeyInput::update() == TRUE 
+        && Timer::update() == TRUE
+        && KeyInput::getKeyHit(KEY_INPUT_ESCAPE) == 0
+    )
     {
-        //エスケープで終了
-        if (KeyInput::getKeyHit(KEY_INPUT_ESCAPE) >= 1) break;
-
         if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1)
         {
             ERROR_WITH_FINISH(_T("エラーのテストだ！！"));
         }
         //ゲームループ
         Timer::drawFps(0, 0);
-
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_RIGHT) >= 1) x += speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_LEFT) >= 1) x -= speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_UP) >= 1) y -= speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_DOWN) >= 1) y += speed * Timer::getDeltaTime();
-
-        DrawCircleAA(x, y, 10.0f, 32, GetColor(255, 0, 0), TRUE);
+        DrawCircle(100, 100, 10, GetColor(255, 0, 0), TRUE);
 
     }
 
     DxLib_End();			// ＤＸライブラリ使用の終了処理
     return 0;				// ソフトの終了 
 }
-

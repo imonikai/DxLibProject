@@ -9,7 +9,7 @@ float XInput::leftStickX;
 float XInput::leftStickY;
 float XInput::rightStickX;
 float XInput::rightStickY;
-unsigned int XInput::inputs[MY_XINPUT_INPUT_NUM] = { 0 };
+int XInput::inputs[MY_XINPUT_INPUT_NUM] = { 0 };
 
 void XInput::updateStick()
 {
@@ -89,10 +89,11 @@ BOOL XInput::update()
         /*inputsのint範囲超え対策*/
         for (int i = 0; i < MY_XINPUT_INPUT_NUM; i++)
         {
-            inputs[i] = inputs[i] & UINT_MAX; //UINT_MAX - 1まで行ったら0になる
+            inputs[i] %= INT_MAX;
         }
     }
     /*デバッグ*/
+    /*
     clsDx();
     printfDx(_T("leftStickX = % f, leftStickY = % f\n"), leftStickX, leftStickY);
     printfDx(_T("rightStickX = %f, rightStickY = %f\n"), rightStickX, rightStickY);
@@ -101,6 +102,7 @@ BOOL XInput::update()
     {
         printfDx(_T("inputs[%d] = %d\n"), i, inputs[i]);
     }
+    */
     return TRUE;
 }
 

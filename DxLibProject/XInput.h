@@ -31,7 +31,7 @@ private:
     static float rightStickY; //正規化された右スティックのy -1.0 ~ 1.0
 
     /* パッドの情報蓄積用変数（KeyInutと同じような感じで使うための変数) */
-    static unsigned int inputs[];
+    static int inputs[];
 
 
     static void updateStick();

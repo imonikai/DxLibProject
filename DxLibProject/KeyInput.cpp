@@ -1,7 +1,7 @@
 ﻿#include "KeyInput.h"
 #include <climits>
 
-unsigned int KeyInput::key[256] = { 0 };
+int KeyInput::key[256] = { 0 };
 
 BOOL KeyInput::update()
 {
@@ -10,7 +10,7 @@ BOOL KeyInput::update()
     for (int i = 0; i < 256; i++) {
         if (tmpKey[i] != 0) {
             key[i]++;
-            key[i] = key[i] & UINT_MAX; //UINT_MAX - 1まで行ったら0になる
+            key[i] %= INT_MAX;
         }
         else {
             key[i] = 0;
@@ -19,7 +19,7 @@ BOOL KeyInput::update()
     return TRUE;
 }
 
-unsigned int KeyInput::getKeyHit(unsigned char keyCode)
+int KeyInput::getKeyHit(unsigned char keyCode)
 {
     return key[keyCode];
 }

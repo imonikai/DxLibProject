@@ -27,7 +27,7 @@ BOOL Timer::update()
     beforeFrameHiPerformanceCount = tmpNowTime;
 
     fpsCounter++;
-    if (nowTime - fpsCheckTime > 1000000)
+    if (nowTime - fpsCheckTime >= 1000000)
     {
         fps = fpsCounter;
         fpsCounter = 0;

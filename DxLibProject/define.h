@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "DxLib.h"
-
-//DXライブラリのLog.txtを出力するかどうか
-inline constexpr BOOL DX_LOGTXT_OUTPUT_FLAG = TRUE;
+/*
+* ここに定義するのはゲーム全体で普遍的に使いそうな変数だけにする
+*/
 
 //描画領域のサイズ
 inline constexpr int GRAPH_WIDTH = 800;

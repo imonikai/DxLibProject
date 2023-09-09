@@ -16,14 +16,16 @@
 #include "define.h"
 #include "KeyInput.h"
 #include "Error.h"
+#include "Timer.h"
 
 // プログラムは WinMain から始まります 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     /* ゲーム処理初期　*/
     SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); //utf8を使うようにする
+    SetWindowText(_T("ゲーム作れ！！")); ///ウィンドウタイトル設定
     SetGraphMode(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_COLOR_BIT); //解像度を設定
-    SetOutApplicationLogValidFlag(DX_LOGTXT_OUTPUT_FLAG); //Log.txtの設定
+    SetOutApplicationLogValidFlag(TRUE); //Log.txtの設定
     /*フルスクリーンかウィンドウか選ばせる*/
     if (MessageBox(NULL, _T("フルスクリーンで起動しますか？"), _T("起動オプション"), MB_YESNO) == IDYES) {
         ChangeWindowMode(FALSE);
@@ -39,12 +41,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
     SetDrawScreen(DX_SCREEN_BACK); //裏画面を使用する
 
+    Timer::init(); //タイマーを初期化する
+
     // while( 裏画面を表画面に反映, メッセージ処理, 画面クリア )
     while ( ScreenFlip() == 0 
         && ProcessMessage() == 0 
         && ClearDrawScreen() == 0 
         && KeyInput::update() == TRUE 
-        && KeyInput::getKeyHit(KEY_INPUT_ESCAPE) == 0 
+        && Timer::update() == TRUE
+        && KeyInput::getKeyHit(KEY_INPUT_ESCAPE) == 0
     )
     {
         if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1)
@@ -52,6 +57,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             ERROR_WITH_FINISH(_T("エラーのテストだ！！"));
         }
         //ゲームループ
+        Timer::drawFps(0, 0);
         DrawCircle(100, 100, 10, GetColor(255, 0, 0), TRUE);
 
     }

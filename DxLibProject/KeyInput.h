@@ -6,12 +6,12 @@ class KeyInput
 {
 private:
 
-    static int key[];
+    static unsigned int key[];
     KeyInput() = delete;
 
 public:
 
     static BOOL update();
-    static int getKeyHit(unsigned char);
+    static unsigned int getKeyHit(unsigned char);
 
 };

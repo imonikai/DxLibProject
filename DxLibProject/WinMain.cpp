@@ -40,6 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetWindowText(_T("ゲーム作れ！！")); ///ウィンドウタイトル設定
     SetGraphMode(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_COLOR_BIT); //解像度を設定
     SetOutApplicationLogValidFlag(TRUE); //Log.txtの設定
+    SetUseTransColor(FALSE); //アルファチャンネルのない画像で透過色機能を使うか設定（オフ）
     /*フルスクリーンかウィンドウか選ばせる*/
     if (MessageBox(NULL, _T("フルスクリーンで起動しますか？"), _T("起動オプション"), MB_YESNO) == IDYES) {
         ChangeWindowMode(FALSE);

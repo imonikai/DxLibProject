@@ -18,6 +18,7 @@
 #include "Error.h"
 #include "Timer.h"
 #include "XInput.h"
+#include "collision.hpp"
 
 //ゲームループの必須処理
 BOOL requiredProcess()
@@ -60,9 +61,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     XInput::init(DX_INPUT_PAD1); //コントローラーを初期化する（コントローラーはゼロ番を使う
 
     /*サンプルの丸用変数*/
-    float x = 100.0f;
-    float y = 100.0f;
-    float speed = 200.0f;
+    Circle c1 = { 100.0f, 100.0f, 10.0f };
+    Circle c2 = { 300.0f, 300.0f, 100.0f };
+    float speed = 100.0f;
+
+    BOOL c2FillFlag = FALSE;
 
     // while( 裏画面を表画面に反映, メッセージ処理, 画面クリア )
     while ( requiredProcess() )
@@ -77,12 +80,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         //ゲームループ
         Timer::drawFps(0, 0);
 
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_RIGHT) >= 1) x += speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_LEFT) >= 1) x -= speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_UP) >= 1) y -= speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_DOWN) >= 1) y += speed * Timer::getDeltaTime();
+        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_RIGHT) >= 1) c1.x += speed * Timer::getDeltaTime();
+        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_LEFT) >= 1) c1.x -= speed * Timer::getDeltaTime();
+        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_UP) >= 1) c1.y -= speed * Timer::getDeltaTime();
+        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_DOWN) >= 1) c1.y += speed * Timer::getDeltaTime();
 
-        DrawCircleAA(x, y, 10.0f, 32, GetColor(255, 0, 0), TRUE);
+        if (collisionCircle(c1, c2))
+            c2FillFlag = TRUE;
+        else
+            c2FillFlag = FALSE;
+        DrawCircleAA(c2.x, c2.y, c2.r, 32, GetColor(0, 0, 255), c2FillFlag);
+        DrawCircleAA(c1.x, c1.y, c1.r, 32, GetColor(255, 0, 0), TRUE);
 
     }
 

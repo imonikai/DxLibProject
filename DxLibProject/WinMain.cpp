@@ -18,7 +18,7 @@
 #include "Error.h"
 #include "Timer.h"
 #include "XInput.h"
-#include "collision.hpp"
+#include "collision.h"
 
 //ゲームループの必須処理
 BOOL requiredProcess()

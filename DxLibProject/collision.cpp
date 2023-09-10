@@ -1,11 +1,4 @@
-﻿#include "DxLib.h"
-
-typedef struct {
-
-    float x, y, r;
-
-}  Circle;
-
+﻿#include "collision.h"
 
 BOOL collisionCircle(Circle c1, Circle c2)
 {

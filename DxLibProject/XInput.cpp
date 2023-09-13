@@ -89,7 +89,7 @@ BOOL XInput::update()
         /*inputsのint範囲超え対策*/
         for (int i = 0; i < MY_XINPUT_INPUT_NUM; i++)
         {
-            inputs[i] %= INT_MAX;
+            if (inputs[i] == INT_MAX) inputs[i] = 0;
         }
     }
     /*デバッグ*/

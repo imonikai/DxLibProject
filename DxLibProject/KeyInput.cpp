@@ -10,7 +10,7 @@ BOOL KeyInput::update()
     for (int i = 0; i < 256; i++) {
         if (tmpKey[i] != 0) {
             key[i]++;
-            key[i] %= INT_MAX;
+            if (key[i] == INT_MAX) key[i] = 0;
         }
         else {
             key[i] = 0;

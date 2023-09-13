@@ -9,7 +9,7 @@
 * ~エラー表示について~
 * Error.hにメッセージボックスでエラーを表示する関数があるが、
 * フルスクリーンモードではメッセージボックスが使えない。
-* ERROR_WITH_FINISH()マクロを使え
+* FINISH_WITH_ERROR()マクロを使え
 */
 
 #include "DxLib.h"
@@ -75,7 +75,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1)
         {
-            ERROR_WITH_FINISH(_T("エラーのテストだ！！"));
+            FINISH_WITH_ERROR(_T("エラーのテストだ！！"));
         }
         //ゲームループ
         Timer::drawFps(0, 0);

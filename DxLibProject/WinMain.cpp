@@ -5,7 +5,7 @@
 * _T()はマクロということ。
 * 文字列の変数はTCHAR型のポインタにする。
 * TCHARは_T()と同じような感じ。変数の型charとwchar_tを自動で使い分ける。
-* 
+*
 * ~エラー表示について~
 * Error.hにメッセージボックスでエラーを表示する関数があるが、
 * フルスクリーンモードではメッセージボックスが使えない。
@@ -33,7 +33,7 @@ BOOL requiredProcess()
     return TRUE;
 }
 
-// プログラムは WinMain から始まります 
+// プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     /* ゲーム処理初期　*/
@@ -96,6 +96,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     DxLib_End();			// ＤＸライブラリ使用の終了処理
-    return 0;				// ソフトの終了 
+    return 0;				// ソフトの終了
 }
 

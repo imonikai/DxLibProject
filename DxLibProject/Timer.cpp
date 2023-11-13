@@ -7,8 +7,7 @@ LONGLONG Timer::fpsCheckTime;
 int Timer::fps;
 int Timer::fpsCounter;
 
-void Timer::init()
-{
+void Timer::init() {
     nowTime = GetNowHiPerformanceCount();
     beforeFrameHiPerformanceCount = nowTime;
     deltaTime = 0.0f;
@@ -17,8 +16,7 @@ void Timer::init()
     fpsCounter = 0;
 }
 
-BOOL Timer::update()
-{
+BOOL Timer::update() {
     LONGLONG tmpNowTime = nowTime;
     nowTime = GetNowHiPerformanceCount();
 
@@ -38,12 +36,10 @@ BOOL Timer::update()
     return TRUE;
 }
 
-float Timer::getDeltaTime()
-{
+float Timer::getDeltaTime() {
     return deltaTime;
 }
 
-void Timer::drawFps(const int x, const int y)
-{
-    DrawFormatString(x, y, GetColor(255, 255, 255), _T("FPS: %d"), fps);
+void Timer::drawFps(const int x, const int y, const int fontHandle) {
+    DrawFormatStringToHandle(x, y, GetColor(255, 255, 255), fontHandle, _T("FPS: %d"), fps);
 }

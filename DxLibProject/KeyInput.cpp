@@ -3,8 +3,7 @@
 
 int KeyInput::key[256] = { 0 };
 
-BOOL KeyInput::update()
-{
+BOOL KeyInput::update() {
     char tmpKey[256];
     if( GetHitKeyStateAll(tmpKey) == -1) return FALSE;
     for (int i = 0; i < 256; i++) {
@@ -19,7 +18,6 @@ BOOL KeyInput::update()
     return TRUE;
 }
 
-int KeyInput::getKeyHit(unsigned char keyCode)
-{
+int KeyInput::getKeyHit(unsigned char keyCode) {
     return key[keyCode];
 }

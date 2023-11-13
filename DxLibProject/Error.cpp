@@ -1,19 +1,16 @@
 ﻿#include "Error.h"
 #include "KeyInput.h"
 
-void ErrorEnd()
-{
+void ErrorEnd() {
     DxLib_End();
     exit(-1);
 }
 
-void ErrorMessageBoxOK(const TCHAR* message)
-{
+void ErrorMessageBoxOK(const TCHAR* message) {
     MessageBox(NULL, message, _T("Error"), MB_OK);
 }
 
-void ErrorMessageWithFinish(const TCHAR* message, const TCHAR* functionName, int line)
-{
+void FinishWithError(const TCHAR* message, const TCHAR* functionName, int line) {
     printfDx(_T("異常が発生しました。\n%s\n%s(%d)\nEscキーを押してソフトを終了します。")
         , message
         , functionName

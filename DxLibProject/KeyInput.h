@@ -2,8 +2,7 @@
 
 #include "DxLib.h"
 
-class KeyInput
-{
+class KeyInput {
 private:
 
     static int key[];

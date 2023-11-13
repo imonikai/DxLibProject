@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include "DxLib.h"
 
-class Timer
-{
+class Timer {
 private:
 
     static LONGLONG nowTime;
@@ -18,7 +17,7 @@ public:
     static void init();
     static BOOL update();
     static float getDeltaTime();
-    static void drawFps(const int x, const int y);
+    static void drawFps(const int x, const int y, const int fontHandle);
 
 };
 

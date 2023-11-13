@@ -15,8 +15,7 @@
 #define MY_XINPUT_RIGHT_TRIGGER 25
 #define MY_XINPUT_INPUT_NUM 26
 
-class XInput
-{
+class XInput {
 private:
 
     /* パッドの情報更新用変数 */

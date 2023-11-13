@@ -34,8 +34,7 @@ BOOL requiredProcess()
 }
 
 // プログラムは WinMain から始まります
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     /* ゲーム処理初期　*/
     SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); //utf8を使うようにする
     SetWindowText(_T("ゲーム作れ！！")); ///ウィンドウタイトル設定
@@ -47,13 +46,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     if (MessageBox(NULL, _T("フルスクリーンで起動しますか？"), _T("起動オプション"), MB_YESNO) == IDYES) {
         ChangeWindowMode(FALSE);
     }
-    else
-    {
+    else {
         ChangeWindowMode(TRUE);
         SetWindowSizeChangeEnableFlag(TRUE);
     }
-    if (DxLib_Init() == -1)	// ＤＸライブラリ初期化処理
-    {
+    if (DxLib_Init() == -1) { // ＤＸライブラリ初期化処理
         return -1;			// エラーが起きたら直ちに終了
     }
     SetDrawScreen(DX_SCREEN_BACK); //裏画面を使用する
@@ -68,28 +65,41 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     BOOL c2FillFlag = FALSE;
 
+    const int defaultFont = CreateFontToHandle(NULL, 30, -1, DX_FONTTYPE_NORMAL);
+
     // while( 裏画面を表画面に反映, メッセージ処理, 画面クリア )
-    while ( requiredProcess() )
-    {
+    while ( requiredProcess() ) {
         //エスケープで終了
         if (KeyInput::getKeyHit(KEY_INPUT_ESCAPE) >= 1) break;
 
-        if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1)
-        {
+        if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1) {
             FINISH_WITH_ERROR(_T("エラーのテストだ！！"));
         }
-        //ゲームループ
-        Timer::drawFps(0, 0);
 
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_RIGHT) >= 1) c1.x += speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_LEFT) >= 1) c1.x -= speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_UP) >= 1) c1.y -= speed * Timer::getDeltaTime();
-        if (XInput::getInputHit(MY_XINPUT_LEFT_STICK_DOWN) >= 1) c1.y += speed * Timer::getDeltaTime();
+        
+
+        // fpsの表示
+        Timer::drawFps(0, 0, defaultFont);
+
+        /* キー入力かXInputの入力で丸が動く */
+        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_RIGHT) >= 1
+            || KeyInput::getKeyHit(KEY_INPUT_RIGHT) )
+            c1.x += speed * Timer::getDeltaTime();
+        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_LEFT) >= 1
+            || KeyInput::getKeyHit(KEY_INPUT_LEFT) )
+            c1.x -= speed * Timer::getDeltaTime();
+        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_UP) >= 1
+            || KeyInput::getKeyHit(KEY_INPUT_UP) )
+            c1.y -= speed * Timer::getDeltaTime();
+        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_DOWN) >= 1
+            || KeyInput::getKeyHit(KEY_INPUT_DOWN) )
+            c1.y += speed * Timer::getDeltaTime();
 
         if (collisionCircle(c1, c2))
             c2FillFlag = TRUE;
         else
             c2FillFlag = FALSE;
+
         DrawCircleAA(c2.x, c2.y, c2.r, 32, GetColor(0, 0, 255), c2FillFlag);
         DrawCircleAA(c1.x, c1.y, c1.r, 32, GetColor(255, 0, 0), TRUE);
 

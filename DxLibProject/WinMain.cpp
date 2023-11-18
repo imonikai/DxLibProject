@@ -9,7 +9,7 @@
 * ~エラー表示について~
 * Error.hにメッセージボックスでエラーを表示する関数があるが、
 * フルスクリーンモードではメッセージボックスが使えない。
-* FINISH_WITH_ERROR()マクロを使え
+* EXIT_WITH_ERROR()マクロを使え
 */
 
 #include "DxLib.h"
@@ -73,7 +73,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         if (KeyInput::getKeyHit(KEY_INPUT_ESCAPE) >= 1) break;
 
         if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1) {
-            FINISH_WITH_ERROR(_T("エラーのテストだ！！"));
+            EXIT_WITH_ERROR(_T("エラーのテストだ！！"));
         }
 
         

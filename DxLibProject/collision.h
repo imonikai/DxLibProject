@@ -9,4 +9,4 @@ typedef struct {
 }  Circle;
 
 
-BOOL collisionCircle(Circle c1, Circle c2);
+BOOL collisionCircle(Circle& c1, Circle& c2);

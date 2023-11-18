@@ -9,8 +9,11 @@ inline constexpr int WINDOW_WIDTH = 1280;
 inline constexpr int WINDOW_HEIGHT = 720;
 
 //描画領域のサイズ
-inline constexpr int GRAPH_WIDTH = 1920;
-inline constexpr int GRAPH_HEIGHT = 1080;
+inline constexpr int GRAPH_WIDTH = 1280;
+inline constexpr int GRAPH_HEIGHT = 720;
 inline constexpr int GRAPH_COLOR_BIT = 32;
+
+//斜め45移動の補正値
+inline constexpr float MOVE_CORRECTION = 0.70710678118654752440084436210485f;
 
 

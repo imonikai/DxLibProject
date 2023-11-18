@@ -66,7 +66,6 @@ BOOL XInput::init(const int _padNumber)
 
 BOOL XInput::update()
 {
-
     int result = GetJoypadXInputState(padNumber, &padState);
     if (result == 0)
     {
@@ -89,7 +88,8 @@ BOOL XInput::update()
         /*inputsのint範囲超え対策*/
         for (int i = 0; i < MY_XINPUT_INPUT_NUM; i++)
         {
-            if (inputs[i] == INT_MAX) inputs[i] = 0;
+            if (inputs[i] == INT_MAX)
+                inputs[i] = 2;
         }
     }
     /*デバッグ*/

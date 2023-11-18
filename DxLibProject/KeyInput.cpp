@@ -9,7 +9,8 @@ BOOL KeyInput::update() {
     for (int i = 0; i < 256; i++) {
         if (tmpKey[i] != 0) {
             key[i]++;
-            if (key[i] == INT_MAX) key[i] = 0;
+            if (key[i] == INT_MAX)
+                key[i] = 2;
         }
         else {
             key[i] = 0;

@@ -11,8 +11,8 @@ void ErrorMessageBoxOK(const TCHAR* message) {
     MessageBox(NULL, message, _T("Error"), MB_OK);
 }
 
-void FinishWithError(const TCHAR* message, const TCHAR* functionName, int line) {
-    SetFontSize((int)(GRAPH_WIDTH / 30));
+void ExitWithError(const TCHAR* message, const TCHAR* functionName, int line) {
+    SetFontSize((int)(GRAPH_WIDTH / 40));
     while (!ProcessMessage()) {
         ClearDrawScreen();
         DrawFormatString(0, 0, GetColor(255, 255, 255),

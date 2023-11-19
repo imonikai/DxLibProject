@@ -17,6 +17,7 @@
 
 class XInput {
 private:
+    XInput() = delete;
 
     /* パッドの情報更新用変数 */
     static XINPUT_STATE padState; //パッドの情報を取得する構造体
@@ -34,7 +35,6 @@ private:
 
     static void updateStick();
     static void updateTrigger();
-    XInput() = delete;
 
 public:
 

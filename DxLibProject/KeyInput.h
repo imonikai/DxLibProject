@@ -4,9 +4,9 @@
 
 class KeyInput {
 private:
+    KeyInput() = delete;
 
     static int key[];
-    KeyInput() = delete;
 
 public:
 

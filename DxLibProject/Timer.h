@@ -3,6 +3,7 @@
 
 class Timer {
 private:
+    Timer() = delete;
 
     static LONGLONG nowTime;
     static LONGLONG beforeFrameHiPerformanceCount;
@@ -10,7 +11,6 @@ private:
     static LONGLONG fpsCheckTime;
     static int fps;
     static int fpsCounter;
-    Timer();
 
 public:
 

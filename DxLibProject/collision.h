@@ -8,5 +8,4 @@ struct Circle {
 
 };
 
-
 BOOL collisionCircle(Circle&, Circle&);

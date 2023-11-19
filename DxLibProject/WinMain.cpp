@@ -14,11 +14,11 @@
 
 #include "DxLib.h"
 #include "define.h"
-#include "KeyInput.h"
 #include "Error.h"
 #include "Timer.h"
-#include "XInput.h"
 #include "collision.h"
+#include "GameInput.h"
+#include "KeyInput.h"
 
 //ゲームループの必須処理
 BOOL requiredProcess()
@@ -26,9 +26,8 @@ BOOL requiredProcess()
     if (ScreenFlip() == -1) return FALSE;
     if (ProcessMessage() == -1) return FALSE;
     if (ClearDrawScreen() == -1) return FALSE;
-    if (KeyInput::update() == FALSE) return FALSE;
+    if (GameInput::update() == FALSE) return FALSE;
     if (Timer::update() == FALSE) return FALSE;
-    if (XInput::update() == FALSE) return FALSE;
 
     return TRUE;
 }
@@ -57,7 +56,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetDrawScreen(DX_SCREEN_BACK); //裏画面を使用する
 
     Timer::init(); //タイマーを初期化する
-    XInput::init(DX_INPUT_PAD1); //コントローラーを初期化する（コントローラーはゼロ番を使う
+    GameInput::init();
 
     /*サンプルの丸用変数*/
     Circle c1 = { 100.0f, 100.0f, 10.0f };
@@ -82,32 +81,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         float move;
         move = speed;
-        if (XInput::getInputHit(MY_XINPUT_LEFTSTICK_RIGHT) >= 1
-            || KeyInput::getKeyHit(KEY_INPUT_RIGHT) >= 1
-            || XInput::getInputHit(MY_XINPUT_LEFTSTICK_LEFT) >= 1
-            || KeyInput::getKeyHit(KEY_INPUT_LEFT) >= 1)
+        if (GameInput::getInputHit(GAMEINPUT_UP) || GameInput::getInputHit(GAMEINPUT_DOWN))
         {
-            if (XInput::getInputHit(MY_XINPUT_LEFTSTICK_UP) >= 1
-                || KeyInput::getKeyHit(KEY_INPUT_UP) >= 1
-                || XInput::getInputHit(MY_XINPUT_LEFTSTICK_DOWN) >= 1
-                || KeyInput::getKeyHit(KEY_INPUT_DOWN) >= 1)
+            if (GameInput::getInputHit(GAMEINPUT_LEFT) || GameInput::getInputHit(GAMEINPUT_RIGHT))
             {
                 move *= MOVE_CORRECTION;
             }
         }
 
         /* キー入力かXInputの入力で丸が動く */
-        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_RIGHT) >= 1
-            || KeyInput::getKeyHit(KEY_INPUT_RIGHT) )
+        if (GameInput::getInputHit(GAMEINPUT_RIGHT))
             c1.x += move * Timer::getDeltaTime();
-        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_LEFT) >= 1
-            || KeyInput::getKeyHit(KEY_INPUT_LEFT) )
+        if (GameInput::getInputHit(GAMEINPUT_LEFT))
             c1.x -= move * Timer::getDeltaTime();
-        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_UP) >= 1
-            || KeyInput::getKeyHit(KEY_INPUT_UP) )
+        if (GameInput::getInputHit(GAMEINPUT_UP))
             c1.y -= move * Timer::getDeltaTime();
-        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_DOWN) >= 1
-            || KeyInput::getKeyHit(KEY_INPUT_DOWN) )
+        if (GameInput::getInputHit(GAMEINPUT_DOWN))
             c1.y += move * Timer::getDeltaTime();
 
         if (collisionCircle(c1, c2))

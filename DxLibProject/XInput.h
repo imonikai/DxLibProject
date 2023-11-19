@@ -3,16 +3,16 @@
 #include "DxLib.h"
 
 /*XINPUTの入力取得のための追加定数（DXライブラリの仕様変更があるかもしれないのでMY_をつけておく)*/
-#define MY_XINPUT_LEFT_STICK_UP (16)
-#define MY_XINPUT_LEFT_STICK_DOWN (17)
-#define MY_XINPUT_LEFT_STICK_LEFT (18)
-#define MY_XINPUT_LEFT_STICK_RIGHT (19)
-#define MY_XINPUT_RIGHT_STICK_UP (20)
-#define MY_XINPUT_RIGHT_STICK_DOWN (21)
-#define MY_XINPUT_RIGHT_STICK_LEFT (22)
-#define MY_XINPUT_RIGHT_STICK_RIGHT (23)
-#define MY_XINPUT_LEFT_TRIGGER (24)
-#define MY_XINPUT_RIGHT_TRIGGER (25)
+#define MY_XINPUT_LEFTSTICK_UP (16)
+#define MY_XINPUT_LEFTSTICK_DOWN (17)
+#define MY_XINPUT_LEFTSTICK_LEFT (18)
+#define MY_XINPUT_LEFTSTICK_RIGHT (19)
+#define MY_XINPUT_RIGHTSTICK_UP (20)
+#define MY_XINPUT_RIGHTSTICK_DOWN (21)
+#define MY_XINPUT_RIGHTSTICK_LEFT (22)
+#define MY_XINPUT_RIGHTSTICK_RIGHT (23)
+#define MY_XINPUT_LEFTTRIGGER (24)
+#define MY_XINPUT_RIGHTTRIGGER (25)
 #define MY_XINPUT_INPUT_NUM (26)
 
 class XInput {
@@ -38,11 +38,11 @@ private:
 
 public:
 
-    static BOOL init(const int _padNumber);
+    static BOOL init(int padNumber);
     static BOOL update();
-    static int getInputHit(const unsigned char inputCode);
-    static void setDeadZone(const float newDeadZone);
-    static void setTriggerActionPoint(const unsigned char point);
+    static int getInputHit(unsigned char inputCode);
+    static void setDeadZone(float newDeadZone);
+    static void setTriggerActionPoint(unsigned char point);
 
 };
 

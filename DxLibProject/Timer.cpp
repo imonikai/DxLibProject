@@ -40,6 +40,10 @@ float Timer::getDeltaTime() {
     return deltaTime;
 }
 
-void Timer::drawFps(const int x, const int y, const int fontHandle) {
+void Timer::drawFps(int x, int y) {
+    DrawFormatString(x, y, GetColor(255, 255, 255), _T("%d"), fps);
+}
+
+void Timer::drawFps(int x, int y, int fontHandle) {
     DrawFormatStringToHandle(x, y, GetColor(255, 255, 255), fontHandle, _T("FPS: %d"), fps);
 }

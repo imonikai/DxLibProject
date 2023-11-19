@@ -1,7 +1,7 @@
 ﻿/*
 * ~文字コードについて~
 * 文字列を扱う場合は、_T("テキスト")のようにする。
-* これによってマルチバイト文字とUnicode文字をビルド時にcharとwchar_tを自動で使い分ける。
+* これによってマルチバイト文字とワイド文字をビルド時にcharとwchar_tを自動で使い分ける。
 * _T()はマクロということ。
 * 文字列の変数はTCHAR型のポインタにする。
 * TCHARは_T()と同じような感じ。変数の型charとwchar_tを自動で使い分ける。
@@ -9,7 +9,7 @@
 * ~エラー表示について~
 * Error.hにメッセージボックスでエラーを表示する関数があるが、
 * フルスクリーンモードではメッセージボックスが使えない。
-* EXIT_WITH_ERROR()マクロを使え
+* EXIT_ERR()マクロを使え
 */
 
 #include "DxLib.h"
@@ -40,6 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetWindowText(_T("ゲーム作れ！！")); ///ウィンドウタイトル設定
     SetGraphMode(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_COLOR_BIT); //解像度を設定
     SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); //ウィンドウサイズを設定
+    SetFontSize(30); //デフォルトのフォントサイズを設定
     SetOutApplicationLogValidFlag(TRUE); //Log.txtの設定
     SetUseTransColor(FALSE); //アルファチャンネルのない画像で透過色機能を使うか設定（オフ）
     /*フルスクリーンかウィンドウか選ばせる*/
@@ -65,35 +66,49 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     BOOL c2FillFlag = FALSE;
 
-    const int defaultFont = CreateFontToHandle(NULL, 30, -1, DX_FONTTYPE_NORMAL);
-
     // while( 裏画面を表画面に反映, メッセージ処理, 画面クリア )
     while ( requiredProcess() ) {
         //エスケープで終了
         if (KeyInput::getKeyHit(KEY_INPUT_ESCAPE) >= 1) break;
 
         if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1) {
-            EXIT_WITH_ERROR(_T("エラーのテストだ！！"));
+            EXIT_ERR(_T("エラーのテストだ！！"));
         }
 
         
 
         // fpsの表示
-        Timer::drawFps(0, 0, defaultFont);
+        Timer::drawFps(0, 0);
+
+        float move;
+        move = speed;
+        if (XInput::getInputHit(MY_XINPUT_LEFTSTICK_RIGHT) >= 1
+            || KeyInput::getKeyHit(KEY_INPUT_RIGHT) >= 1
+            || XInput::getInputHit(MY_XINPUT_LEFTSTICK_LEFT) >= 1
+            || KeyInput::getKeyHit(KEY_INPUT_LEFT) >= 1)
+        {
+            if (XInput::getInputHit(MY_XINPUT_LEFTSTICK_UP) >= 1
+                || KeyInput::getKeyHit(KEY_INPUT_UP) >= 1
+                || XInput::getInputHit(MY_XINPUT_LEFTSTICK_DOWN) >= 1
+                || KeyInput::getKeyHit(KEY_INPUT_DOWN) >= 1)
+            {
+                move *= MOVE_CORRECTION;
+            }
+        }
 
         /* キー入力かXInputの入力で丸が動く */
-        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_RIGHT) >= 1
+        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_RIGHT) >= 1
             || KeyInput::getKeyHit(KEY_INPUT_RIGHT) )
-            c1.x += speed * Timer::getDeltaTime();
-        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_LEFT) >= 1
+            c1.x += move * Timer::getDeltaTime();
+        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_LEFT) >= 1
             || KeyInput::getKeyHit(KEY_INPUT_LEFT) )
-            c1.x -= speed * Timer::getDeltaTime();
-        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_UP) >= 1
+            c1.x -= move * Timer::getDeltaTime();
+        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_UP) >= 1
             || KeyInput::getKeyHit(KEY_INPUT_UP) )
-            c1.y -= speed * Timer::getDeltaTime();
-        if (   XInput::getInputHit(MY_XINPUT_LEFT_STICK_DOWN) >= 1
+            c1.y -= move * Timer::getDeltaTime();
+        if (   XInput::getInputHit(MY_XINPUT_LEFTSTICK_DOWN) >= 1
             || KeyInput::getKeyHit(KEY_INPUT_DOWN) )
-            c1.y += speed * Timer::getDeltaTime();
+            c1.y += move * Timer::getDeltaTime();
 
         if (collisionCircle(c1, c2))
             c2FillFlag = TRUE;

@@ -2,11 +2,11 @@
 
 #include "DxLib.h"
 
-typedef struct {
+struct Circle {
 
     float x, y, r;
 
-}  Circle;
+};
 
 
-BOOL collisionCircle(Circle& c1, Circle& c2);
+BOOL collisionCircle(Circle&, Circle&);

@@ -17,7 +17,8 @@ public:
     static void init();
     static BOOL update();
     static float getDeltaTime();
-    static void drawFps(const int x, const int y, const int fontHandle);
+    static void drawFps(int x, int y);
+    static void drawFps(int x, int y, int fontHandle);
 
 };
 

@@ -14,6 +14,6 @@ inline constexpr int GRAPH_HEIGHT = 720;
 inline constexpr int GRAPH_COLOR_BIT = 32;
 
 //斜め45移動の補正値
-inline constexpr float MOVE_CORRECTION = 0.70710678118654752440084436210485f;
+inline constexpr float MOVE_CORRECTION = 0.70710677f;
 
 

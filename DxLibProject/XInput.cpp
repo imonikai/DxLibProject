@@ -27,39 +27,40 @@ void XInput::updateStick()
 
     /*inputs配列を加算する*/
     /*左スティック*/
-    if (leftStickX < -deadZone) inputs[MY_XINPUT_LEFT_STICK_LEFT]++;
-    else inputs[MY_XINPUT_LEFT_STICK_LEFT] = 0;
-    if (leftStickX > deadZone) inputs[MY_XINPUT_LEFT_STICK_RIGHT]++;
-    else inputs[MY_XINPUT_LEFT_STICK_RIGHT] = 0;
-    if (leftStickY > deadZone) inputs[MY_XINPUT_LEFT_STICK_UP]++;
-    else inputs[MY_XINPUT_LEFT_STICK_UP] = 0;
-    if (leftStickY < -deadZone) inputs[MY_XINPUT_LEFT_STICK_DOWN]++;
-    else inputs[MY_XINPUT_LEFT_STICK_DOWN] = 0;
+    if (leftStickX < -deadZone) inputs[MY_XINPUT_LEFTSTICK_LEFT]++;
+    else inputs[MY_XINPUT_LEFTSTICK_LEFT] = 0;
+    if (leftStickX > deadZone) inputs[MY_XINPUT_LEFTSTICK_RIGHT]++;
+    else inputs[MY_XINPUT_LEFTSTICK_RIGHT] = 0;
+    if (leftStickY > deadZone) inputs[MY_XINPUT_LEFTSTICK_UP]++;
+    else inputs[MY_XINPUT_LEFTSTICK_UP] = 0;
+    if (leftStickY < -deadZone) inputs[MY_XINPUT_LEFTSTICK_DOWN]++;
+    else inputs[MY_XINPUT_LEFTSTICK_DOWN] = 0;
     /*右スティック*/
-    if (rightStickX < -deadZone) inputs[MY_XINPUT_RIGHT_STICK_LEFT]++;
-    else inputs[MY_XINPUT_RIGHT_STICK_LEFT] = 0;
-    if (rightStickX > deadZone) inputs[MY_XINPUT_RIGHT_STICK_RIGHT]++;
-    else inputs[MY_XINPUT_RIGHT_STICK_RIGHT] = 0;
-    if (rightStickY > deadZone) inputs[MY_XINPUT_RIGHT_STICK_UP]++;
-    else inputs[MY_XINPUT_RIGHT_STICK_UP] = 0;
-    if (rightStickY < -deadZone) inputs[MY_XINPUT_RIGHT_STICK_DOWN]++;
-    else inputs[MY_XINPUT_RIGHT_STICK_DOWN] = 0;
+    if (rightStickX < -deadZone) inputs[MY_XINPUT_RIGHTSTICK_LEFT]++;
+    else inputs[MY_XINPUT_RIGHTSTICK_LEFT] = 0;
+    if (rightStickX > deadZone) inputs[MY_XINPUT_RIGHTSTICK_RIGHT]++;
+    else inputs[MY_XINPUT_RIGHTSTICK_RIGHT] = 0;
+    if (rightStickY > deadZone) inputs[MY_XINPUT_RIGHTSTICK_UP]++;
+    else inputs[MY_XINPUT_RIGHTSTICK_UP] = 0;
+    if (rightStickY < -deadZone) inputs[MY_XINPUT_RIGHTSTICK_DOWN]++;
+    else inputs[MY_XINPUT_RIGHTSTICK_DOWN] = 0;
 }
 
 void XInput::updateTrigger()
 {
     if (padState.LeftTrigger > triggerActionPoint)
-        inputs[MY_XINPUT_LEFT_TRIGGER]++;
-    else inputs[MY_XINPUT_LEFT_TRIGGER] = 0;
+        inputs[MY_XINPUT_LEFTTRIGGER]++;
+    else inputs[MY_XINPUT_LEFTTRIGGER] = 0;
     if (padState.RightTrigger > triggerActionPoint)
-        inputs[MY_XINPUT_RIGHT_TRIGGER]++;
-    else inputs[MY_XINPUT_RIGHT_TRIGGER] = 0;
+        inputs[MY_XINPUT_RIGHTTRIGGER]++;
+    else inputs[MY_XINPUT_RIGHTTRIGGER] = 0;
 }
 
 
-BOOL XInput::init(const int _padNumber)
+BOOL XInput::init(int padNumber)
 {
-    if (_padNumber < 1 || _padNumber > 4) padNumber = 1;
+    if (padNumber < 1 || padNumber > 4)
+        XInput::padNumber = 1;
 
     return update();
 }
@@ -73,13 +74,9 @@ BOOL XInput::update()
         for (int i = 0; i < 16; i++)
         {
             if (padState.Buttons[i] == 1)
-            {
                 inputs[i]++;
-            }
             else
-            {
                 inputs[i] = 0;
-            }
         }
         /*スティックとトリガーをinputsに反映*/
         updateStick();
@@ -106,18 +103,18 @@ BOOL XInput::update()
     return TRUE;
 }
 
-int XInput::getInputHit(const unsigned char inputCode)
+int XInput::getInputHit(unsigned char inputCode)
 {
     if (inputCode < 0 || inputCode > MY_XINPUT_INPUT_NUM) return -1;
     return inputs[inputCode];
 }
 
-void XInput::setDeadZone(const float newDeadZone)
+void XInput::setDeadZone(float newDeadZone)
 {
     deadZone = newDeadZone;
 }
 
-void XInput::setTriggerActionPoint(const unsigned char point)
+void XInput::setTriggerActionPoint(unsigned char point)
 {
     triggerActionPoint = point;
 }

@@ -32,6 +32,14 @@ BOOL requiredProcess()
     return TRUE;
 }
 
+//ウィンドウのアクティブ状態が変化したときのコールバック関数
+int callBackDeviceLost(int ActiveState, void* UserData)
+{
+    Timer::init();
+
+    return 1;
+}
+
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     /* ゲーム処理初期　*/
@@ -54,6 +62,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         return -1;			// エラーが起きたら直ちに終了
     }
     SetDrawScreen(DX_SCREEN_BACK); //裏画面を使用する
+    SetActiveStateChangeCallBackFunction(callBackDeviceLost, NULL); //アクティブ状態が変化したときに変化があったときのコールバックを設定
+
 
     Timer::init(); //タイマーを初期化する
     GameInput::init();

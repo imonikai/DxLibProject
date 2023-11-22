@@ -1,43 +1,47 @@
 ﻿#include "Timer.h"
 
-LONGLONG Timer::nowTime;
+LONGLONG Timer::nowHiPerformanceCount;
 LONGLONG Timer::beforeFrameHiPerformanceCount;
 float Timer::deltaTime;
+LONGLONG Timer::hiPerformanceDeltaTime;
 LONGLONG Timer::fpsCheckTime;
 int Timer::fps;
 int Timer::fpsCounter;
 
 void Timer::init() {
-    nowTime = GetNowHiPerformanceCount();
-    beforeFrameHiPerformanceCount = nowTime;
-    deltaTime = 0.0f;
-    fpsCheckTime = nowTime;
+    nowHiPerformanceCount = GetNowHiPerformanceCount();
+    beforeFrameHiPerformanceCount = nowHiPerformanceCount;
+    deltaTime = 0;
+    hiPerformanceDeltaTime = 0;
+    fpsCheckTime = nowHiPerformanceCount;
     fps = 0;
     fpsCounter = 0;
 }
 
 BOOL Timer::update() {
-    LONGLONG tmpNowTime = nowTime;
-    nowTime = GetNowHiPerformanceCount();
+    beforeFrameHiPerformanceCount = nowHiPerformanceCount;
+    nowHiPerformanceCount = GetNowHiPerformanceCount();
 
-    deltaTime = ( nowTime - beforeFrameHiPerformanceCount ) / 1000000.0f;
-
-    beforeFrameHiPerformanceCount = tmpNowTime;
+    hiPerformanceDeltaTime = (nowHiPerformanceCount - beforeFrameHiPerformanceCount);
+    deltaTime = ( nowHiPerformanceCount - beforeFrameHiPerformanceCount ) / 1000000.0f;
 
     fpsCounter++;
-    if (nowTime - fpsCheckTime >= 1000000)
+    if (nowHiPerformanceCount - fpsCheckTime >= 1000000)
     {
         fps = fpsCounter;
         fpsCounter = 0;
-        fpsCheckTime = nowTime;
+        fpsCheckTime = nowHiPerformanceCount;
     }
-
 
     return TRUE;
 }
 
 float Timer::getDeltaTime() {
     return deltaTime;
+}
+
+LONGLONG Timer::getHiPerformanceDeltaTime() {
+    return hiPerformanceDeltaTime;
 }
 
 void Timer::drawFps(int x, int y) {

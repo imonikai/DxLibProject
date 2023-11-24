@@ -105,7 +105,7 @@ BOOL XInput::update()
 
 int XInput::getInputHit(unsigned char inputCode)
 {
-    if (inputCode < 0 || inputCode > MY_XINPUT_INPUT_NUM) return -1;
+    if (inputCode < 0 || inputCode >= MY_XINPUT_INPUT_NUM) return -1;
     return inputs[inputCode];
 }
 

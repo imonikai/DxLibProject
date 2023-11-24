@@ -41,7 +41,7 @@ int callBackDeviceLost(int ActiveState, void* UserData)
 }
 
 // プログラムは WinMain から始まります
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
     /* ゲーム処理初期　*/
     SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); //utf8を使うようにする
     SetWindowText(_T("ゲーム作れ！！")); ///ウィンドウタイトル設定

@@ -19,6 +19,7 @@
 #include "collision.h"
 #include "GameInput.h"
 #include "KeyInput.h"
+#include "FpsControll.h"
 
 //ゲームループの必須処理
 BOOL requiredProcess()
@@ -28,6 +29,8 @@ BOOL requiredProcess()
     if (ClearDrawScreen() == -1) return FALSE;
     if (GameInput::update() == FALSE) return FALSE;
     if (Timer::update() == FALSE) return FALSE;
+    if (FpsControll::update() == FALSE) return FALSE;
+    if (FpsControll::wait() == FALSE) return FALSE;
 
     return TRUE;
 }
@@ -49,6 +52,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
     SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); //ウィンドウサイズを設定
     SetFontSize(30); //デフォルトのフォントサイズを設定
     SetOutApplicationLogValidFlag(TRUE); //Log.txtの設定
+    SetWaitVSyncFlag(TRUE); //垂直同期を待つか設定
     SetUseTransColor(FALSE); //アルファチャンネルのない画像で透過色機能を使うか設定（オフ）
     /*フルスクリーンかウィンドウか選ばせる*/
     if (MessageBox(NULL, _T("フルスクリーンで起動しますか？"), _T("起動オプション"), MB_YESNO) == IDYES) {
@@ -64,14 +68,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
     SetDrawScreen(DX_SCREEN_BACK); //裏画面を使用する
     SetActiveStateChangeCallBackFunction(callBackDeviceLost, NULL); //アクティブ状態が変化したときに変化があったときのコールバックを設定
 
-
+    FpsControll::init();
     Timer::init(); //タイマーを初期化する
     GameInput::init();
 
     /*サンプルの丸用変数*/
     Circle c1 = { 100.0f, 100.0f, 10.0f };
     Circle c2 = { 300.0f, 300.0f, 100.0f };
-    float speed = 100.0f;
+    float speed = 10.0f;
 
     BOOL c2FillFlag = FALSE;
 
@@ -87,7 +91,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
         
 
         // fpsの表示
-        Timer::drawFps(0, 0);
+        DrawFormatString(0, 0, GetColor(255, 255, 255), _T("%.2f"), FpsControll::getFps());
 
         float move;
         move = speed;
@@ -101,13 +105,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 
         /* キー入力かXInputの入力で丸が動く */
         if (GameInput::getInputHit(GAMEINPUT_RIGHT))
-            c1.x += move * Timer::getDeltaTime();
+            c1.x += move;
         if (GameInput::getInputHit(GAMEINPUT_LEFT))
-            c1.x -= move * Timer::getDeltaTime();
+            c1.x -= move;
         if (GameInput::getInputHit(GAMEINPUT_UP))
-            c1.y -= move * Timer::getDeltaTime();
+            c1.y -= move;
         if (GameInput::getInputHit(GAMEINPUT_DOWN))
-            c1.y += move * Timer::getDeltaTime();
+            c1.y += move;
 
         if (collisionCircle(c1, c2))
             c2FillFlag = TRUE;

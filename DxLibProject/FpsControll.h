@@ -11,10 +11,11 @@ private:
     static int frameCount;
     static int calcFpsInterval; //fpsを計算するフレーム間隔
 
+    static BOOL wait();
+
 public:
     static void init();
     static BOOL update();
-    static BOOL wait();
     static float getFps();
 
 };

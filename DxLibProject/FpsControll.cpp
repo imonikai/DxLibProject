@@ -16,6 +16,8 @@ void FpsControll::init()
 
 BOOL FpsControll::update()
 {
+    wait();
+
     if (frameCount == 0)
     {
         measureStartTime = GetNowCount();
@@ -24,7 +26,7 @@ BOOL FpsControll::update()
     if (frameCount == calcFpsInterval)
     {
         int t = GetNowCount();
-        fps = 1000.0f / ((t - measureStartTime) / (float)calcFpsInterval );
+        fps = 1000.0f / ((t - measureStartTime) / (float)calcFpsInterval);
         frameCount = 0;
         measureStartTime = t;
     }

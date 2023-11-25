@@ -24,13 +24,12 @@
 //ゲームループの必須処理
 BOOL requiredProcess()
 {
-    if (ScreenFlip() == -1) return FALSE;
     if (ProcessMessage() == -1) return FALSE;
+    if (ScreenFlip() == -1) return FALSE;
     if (ClearDrawScreen() == -1) return FALSE;
+    if (FpsControll::update() == FALSE) return FALSE;
     if (GameInput::update() == FALSE) return FALSE;
     if (Timer::update() == FALSE) return FALSE;
-    if (FpsControll::update() == FALSE) return FALSE;
-    if (FpsControll::wait() == FALSE) return FALSE;
 
     return TRUE;
 }

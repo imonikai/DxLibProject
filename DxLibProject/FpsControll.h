@@ -5,6 +5,8 @@
 class FpsControll
 {
 private:
+    FpsControll() = delete;
+
     static int FPS; //設定したいfps
     static float fps; //計算したfps
     static int measureStartTime;

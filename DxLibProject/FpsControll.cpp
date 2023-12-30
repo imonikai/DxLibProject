@@ -52,3 +52,8 @@ float FpsControll::getFps()
 {
     return fps;
 }
+
+LONGLONG FpsControll::getFrameCount()
+{
+    return frameCount;
+}

@@ -19,6 +19,6 @@ public:
     static void init();
     static BOOL update();
     static float getFps();
+    static LONGLONG getFrameCount();
 
 };
-

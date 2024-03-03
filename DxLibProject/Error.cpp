@@ -12,6 +12,7 @@ void ErrorMessageBoxOK(const TCHAR* message) {
 }
 
 void ExitWithError(const TCHAR* message, const TCHAR* functionName, int line) {
+    SetDrawArea(0, 0, GRAPH_WIDTH, GRAPH_HEIGHT);
     SetFontSize((int)(GRAPH_WIDTH / 40));
     while (!ProcessMessage()) {
         ClearDrawScreen();

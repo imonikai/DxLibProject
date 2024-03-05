@@ -7,11 +7,11 @@ class FpsControll
 private:
     FpsControll() = delete;
 
-    static int FPS; //設定したいfps
-    static float fps; //計算したfps
-    static int measureStartTime;
-    static int frameCount;
-    static int calcFpsInterval; //fpsを計算するフレーム間隔
+    static inline int FPS; //設定したいfps
+    static inline float fps; //計算したfps
+    static inline int measureStartTime;
+    static inline int frameCount;
+    static inline int calcFpsInterval; //fpsを計算するフレーム間隔
 
     static BOOL wait();
 

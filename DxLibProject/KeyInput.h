@@ -6,7 +6,7 @@ class KeyInput {
 private:
     KeyInput() = delete;
 
-    static int key[];
+    static inline int key[] = { 0 };
 
 public:
 

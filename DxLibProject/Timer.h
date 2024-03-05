@@ -5,10 +5,10 @@ class Timer {
 private:
     Timer() = delete;
 
-    static LONGLONG nowHiPerformanceCount;
-    static LONGLONG beforeHiPerformanceCount;
-    static float deltaTime;
-    static LONGLONG hiPerformanceDeltaTime;
+    static inline LONGLONG nowHiPerformanceCount;
+    static inline LONGLONG beforeHiPerformanceCount;
+    static inline float deltaTime;
+    static inline LONGLONG hiPerformanceDeltaTime;
 
 public:
 

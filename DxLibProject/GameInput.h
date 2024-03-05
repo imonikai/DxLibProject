@@ -17,15 +17,15 @@ class GameInput
 private:
     GameInput() = delete;
     
-    static unsigned char xinputUp;
-    static unsigned char xinputDown;
-    static unsigned char xinputLeft;
-    static unsigned char xinputRight;
-    static unsigned char xinputShot;
-    static unsigned char xinputSlow;
-    static unsigned char xinputBomb;
+    static inline unsigned char xinputUp;
+    static inline unsigned char xinputDown;
+    static inline unsigned char xinputLeft;
+    static inline unsigned char xinputRight;
+    static inline unsigned char xinputShot;
+    static inline unsigned char xinputSlow;
+    static inline unsigned char xinputBomb;
 
-    static int inputs[GAMEINPUT_ACTION_NUM];
+    static inline int inputs[GAMEINPUT_ACTION_NUM];
 
 public:
     static BOOL init();

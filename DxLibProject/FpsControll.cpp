@@ -1,11 +1,5 @@
 ﻿#include "FpsControll.h"
 
-int FpsControll::FPS; //設定したいfps
-float FpsControll::fps;
-int FpsControll::measureStartTime;
-int FpsControll::frameCount;
-int FpsControll::calcFpsInterval; //fpsを計算するフレーム間隔
-
 void FpsControll::init()
 {
     FPS = 60;

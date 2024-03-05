@@ -20,17 +20,17 @@ private:
     XInput() = delete;
 
     /* パッドの情報更新用変数 */
-    static XINPUT_STATE padState; //パッドの情報を取得する構造体
-    static int padNumber; //パッドの番号
-    static unsigned char triggerActionPoint; //トリガーを反応させる値
-    static float deadZone; //スティックのデッドゾーン -1.0 ~ 1.0
-    static float leftStickX; //正規化された左スティックのx -1.0 ~ 1.0
-    static float leftStickY; //正規化された左スティックのy -1.0 ~ 1.0
-    static float rightStickX; //正規化された右スティックのx -1.0 ~ 1.0
-    static float rightStickY; //正規化された右スティックのy -1.0 ~ 1.0
+    static inline XINPUT_STATE padState; //パッドの情報を取得する構造体
+    static inline int padNumber; //パッドの番号
+    static inline unsigned char triggerActionPoint; //トリガーを反応させる値
+    static inline float deadZone; //スティックのデッドゾーン -1.0 ~ 1.0
+    static inline float leftStickX; //正規化された左スティックのx -1.0 ~ 1.0
+    static inline float leftStickY; //正規化された左スティックのy -1.0 ~ 1.0
+    static inline float rightStickX; //正規化された右スティックのx -1.0 ~ 1.0
+    static inline float rightStickY; //正規化された右スティックのy -1.0 ~ 1.0
 
     /* パッドの情報蓄積用変数（KeyInutと同じような感じで使うための変数) */
-    static int inputs[];
+    static inline int inputs[] = { 0 };
 
 
     static void updateStick();

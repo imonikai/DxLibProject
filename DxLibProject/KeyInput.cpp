@@ -1,8 +1,6 @@
 ﻿#include "KeyInput.h"
 #include <climits>
 
-int KeyInput::key[256] = { 0 };
-
 BOOL KeyInput::update() {
     char tmpKey[256];
 

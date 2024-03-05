@@ -1,17 +1,7 @@
 ﻿#include "GameInput.h"
+#include <climits>
 #include "KeyInput.h"
 #include "XInput.h"
-#include <climits>
-
-unsigned char GameInput::xinputUp;
-unsigned char GameInput::xinputDown;
-unsigned char GameInput::xinputLeft;
-unsigned char GameInput::xinputRight;
-unsigned char GameInput::xinputShot;
-unsigned char GameInput::xinputSlow;
-unsigned char GameInput::xinputBomb;
-
-int GameInput::inputs[GAMEINPUT_ACTION_NUM] = { 0 };
 
 BOOL GameInput::init()
 {

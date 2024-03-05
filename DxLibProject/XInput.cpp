@@ -1,16 +1,6 @@
 ﻿#include "XInput.h"
 #include <climits>
 
-XINPUT_STATE XInput::padState;
-int XInput::padNumber = 1;
-unsigned char XInput::triggerActionPoint = 0;
-float XInput::deadZone = 0.35f;
-float XInput::leftStickX;
-float XInput::leftStickY;
-float XInput::rightStickX;
-float XInput::rightStickY;
-int XInput::inputs[MY_XINPUT_INPUT_NUM] = { 0 };
-
 void XInput::updateStick()
 {
     /*スティックの入力を正規化*/

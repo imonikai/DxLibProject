@@ -1,10 +1,5 @@
 ﻿#include "Timer.h"
 
-LONGLONG Timer::nowHiPerformanceCount;
-LONGLONG Timer::beforeHiPerformanceCount;
-float Timer::deltaTime;
-LONGLONG Timer::hiPerformanceDeltaTime;
-
 void Timer::init() {
     nowHiPerformanceCount = GetNowHiPerformanceCount();
     beforeHiPerformanceCount = nowHiPerformanceCount;

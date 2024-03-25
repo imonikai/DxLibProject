@@ -16,8 +16,7 @@ private:
     static BOOL wait();
 
 public:
-    static void init();
-    static void init(int fps);
+    static void init(int fps = 60);
     static void setFps(int fps);
     static BOOL update();
     static float getFps();

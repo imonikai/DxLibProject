@@ -1,17 +1,10 @@
 ﻿#include "FpsControll.h"
 
-void FpsControll::init()
-{
-    FPS = 60;
-    measureStartTime = 0;
-    frameCount = 0;
-    calcFpsInterval = 60;
-}
-
 void FpsControll::init(int fps)
 {
-    FpsControll::init();
-    FpsControll::setFps(fps);
+    setFps(fps);
+    measureStartTime = 0;
+    frameCount = 0;
 }
 
 void FpsControll::setFps(int fps)

@@ -17,6 +17,8 @@ private:
 
 public:
     static void init();
+    static void init(int fps);
+    static void setFps(int fps);
     static BOOL update();
     static float getFps();
     static LONGLONG getFrameCount();

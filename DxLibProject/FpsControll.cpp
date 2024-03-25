@@ -8,6 +8,18 @@ void FpsControll::init()
     calcFpsInterval = 60;
 }
 
+void FpsControll::init(int fps)
+{
+    FpsControll::init();
+    FpsControll::setFps(fps);
+}
+
+void FpsControll::setFps(int fps)
+{
+    FPS = fps;
+    calcFpsInterval = fps;
+}
+
 BOOL FpsControll::update()
 {
     wait();

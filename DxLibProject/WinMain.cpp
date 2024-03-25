@@ -80,17 +80,18 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 
     // while( 裏画面を表画面に反映, メッセージ処理, 画面クリア )
     while ( requiredProcess() ) {
+
         //エスケープで終了
-        if (KeyInput::getKeyHit(KEY_INPUT_ESCAPE) >= 1) break;
+        //if (KeyInput::getKeyHit(KEY_INPUT_ESCAPE) >= 1) break;
 
         if (KeyInput::getKeyHit(KEY_INPUT_E) >= 1) {
             EXIT_ERR(_T("エラーのテストだ！！"));
         }
-
         
 
         // fpsの表示
-        DrawFormatString(0, 0, GetColor(255, 255, 255), _T("%.2f"), FpsControll::getFps());
+        //DrawFormatString(0, 0, GetColor(255, 255, 255), _T("%.2f"), FpsControll::getFps());
+        DrawFormatString(0, 0, GetColor(255, 255, 255), _T("%d"), KeyInput::getKeyHit(KEY_INPUT_ESCAPE));
 
         float move;
         move = speed;
